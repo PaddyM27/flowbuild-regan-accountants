@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regan &amp; Company Chartered Accountants — Dublin &amp; Monaghan</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #090d14;
+  --bg-mid: #0f1520;
+  --accent: #c9a227;
+  --accent-light: #e8c84a;
+  --cream: #f0ead8;
+  --muted: #6a7585;
+  --white: #f5f8fa;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* ─── GRAIN TEXTURE ─────────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
+
+/* ─── NAV ────────────────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 24px 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+}
+
+nav.scrolled {
+  background: rgba(9, 13, 20, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.nav-logo {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(245,248,250,0.6);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover { color: var(--white); }
+
+.nav-cta {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  border: 1px solid var(--accent);
+  padding: 10px 24px;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease;
+}
+
+.nav-cta:hover {
+  background: var(--accent);
+  color: var(--bg);
+  transform: translateY(-1px);
+}
+
+.nav-cta:active { transform: translateY(0); }
+
+/* ─── HAMBURGER ───────────────────────────────────────────────── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+  background: none;
+  border: none;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--white);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(9,13,20,0.97);
+  backdrop-filter: blur(20px);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-menu.open {
+  display: flex;
+  opacity: 1;
+}
+
+.mobile-menu a {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 2.5rem;
+  color: var(--white);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  transition: color 0.2s ease;
+}
+
+.mobile-menu a:hover { color: var(--accent); }
+
+/* ─── HERO ───────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background:
+    linear-gradient(135deg, rgba(9,13,20,0.88) 50%, rgba(9,13,20,0.70) 100%),
+    url('https://picsum.photos/seed/financialoffice/1920/1080') center/cover no-repeat;
+  overflow: hidden;
+}
+
+.hero-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 80px 140px;
+  max-width: 800px;
+}
+
+.hero-spacer { height: 180px; }
+
+.hero-badge {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.hero-badge-rule {
+  width: 40px;
+  height: 1px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.hero-badge-text {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.hero-headline {
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-bottom: 28px;
+}
+
+.hero-headline-plain {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(4rem, 8vw, 7.5rem);
+  color: var(--white);
+}
+
+.hero-headline-accent {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-style: italic;
+  font-size: clamp(4rem, 8vw, 7.5rem);
+  color: var(--accent);
+}
+
+.hero-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 1.6;
+  color: rgba(240,234,216,0.8);
+  max-width: 460px;
+  margin-bottom: 44px;
+}
+
+.hero-ctas {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--accent);
+  border: none;
+  padding: 16px 36px;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+.btn-primary:hover {
+  background: var(--accent-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201,162,39,0.3);
+}
+
+.btn-primary:active { transform: translateY(1px); box-shadow: none; }
+
+.btn-ghost {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--cream);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-ghost:hover { color: var(--accent); transform: translateX(4px); }
+.btn-ghost:active { transform: translateX(2px); }
+
+/* ─── SCROLL INDICATOR ───────────────────────────────────────── */
+.scroll-indicator {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.scroll-indicator-text {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(245,248,250,0.4);
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(201,162,39,0.8), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(0.7); transform-origin: top; }
+  50% { opacity: 1; transform: scaleY(1); transform-origin: top; }
+}
+
+/* ─── STATS STRIP ────────────────────────────────────────────── */
+.stats-strip {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 24px 80px;
+  display: flex;
+  gap: 64px;
+  align-items: center;
+  background: rgba(9,13,20,0.4);
+  backdrop-filter: blur(8px);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 36px;
+  line-height: 1;
+  color: var(--accent);
+}
+
+.stat-label {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.stats-divider {
+  width: 1px;
+  height: 40px;
+  background: rgba(255,255,255,0.1);
+}
+
+/* ─── SECTION SHARED ─────────────────────────────────────────── */
+section {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── SERVICES ───────────────────────────────────────────────── */
+.services-section {
+  background: var(--bg);
+  padding: 120px 80px;
+}
+
+.section-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.section-eyebrow::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.section-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 56px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  margin-bottom: 72px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.service-item {
+  padding: 36px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+  cursor: default;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.service-item:nth-child(odd) { padding-right: 48px; border-right: 1px solid rgba(255,255,255,0.07); }
+.service-item:nth-child(even) { padding-left: 48px; }
+.service-item:nth-last-child(-n+2) { border-bottom: none; }
+
+.service-item:hover { transform: translateX(6px); }
+.service-item:hover .service-name { color: var(--accent); }
+
+.service-number {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  margin-top: 6px;
+  flex-shrink: 0;
+  min-width: 28px;
+}
+
+.service-body { flex: 1; }
+
+.service-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: 8px;
+  transition: color 0.25s ease;
+}
+
+.service-desc {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* ─── ABOUT ──────────────────────────────────────────────────── */
+.about-section {
+  background: var(--bg-mid);
+  padding: 120px 80px;
+  display: grid;
+  grid-template-columns: 55fr 45fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.about-left { max-width: 560px; }
+
+.about-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 52px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  margin-bottom: 32px;
+}
+
+.about-body {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.75;
+  color: rgba(240,234,216,0.75);
+  margin-bottom: 24px;
+}
+
+.about-quote {
+  border-left: 3px solid var(--accent);
+  padding-left: 24px;
+  margin-top: 40px;
+}
+
+.about-quote-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 22px;
+  line-height: 1.5;
+  color: var(--cream);
+}
+
+.about-right {
+  position: relative;
+  height: 600px;
+  overflow: hidden;
+}
+
+.about-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.about-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(15,21,32,0.6) 100%);
+  mix-blend-mode: multiply;
+}
+
+.about-img-color {
+  position: absolute;
+  inset: 0;
+  background: rgba(201,162,39,0.08);
+}
+
+/* ─── CONTACT ────────────────────────────────────────────────── */
+.contact-section {
+  background: var(--bg);
+  padding: 120px 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contact-card {
+  width: 100%;
+  max-width: 640px;
+  background: var(--bg-mid);
+  border: 1px solid rgba(255,255,255,0.07);
+  padding: 64px;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.4);
+}
+
+.contact-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 44px;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.contact-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+/* Multi-step form */
+.form-step {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.form-step.active {
+  display: block;
+  opacity: 1;
+}
+
+.form-question {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 26px;
+  color: var(--white);
+  margin-bottom: 28px;
+  line-height: 1.3;
+}
+
+.form-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.form-option {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+  user-select: none;
+}
+
+.form-option:hover {
+  border-color: rgba(201,162,39,0.4);
+  background: rgba(201,162,39,0.04);
+  transform: translateX(4px);
+}
+
+.form-option.selected {
+  border-color: var(--accent);
+  background: rgba(201,162,39,0.08);
+}
+
+.form-option-radio {
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--muted);
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s ease;
+}
+
+.form-option.selected .form-option-radio {
+  border-color: var(--accent);
+  background: var(--accent);
+  box-shadow: inset 0 0 0 3px var(--bg-mid);
+}
+
+.form-option-label {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  color: var(--cream);
+}
+
+/* Step 3 inputs */
+.form-fields { display: flex; flex-direction: column; gap: 32px; margin-bottom: 40px; }
+
+.form-field { position: relative; }
+
+.form-field label {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.form-field input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  padding: 10px 0;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: var(--white);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.form-field input::placeholder { color: var(--muted); }
+.form-field input:focus { border-bottom-color: var(--accent); }
+
+.form-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.btn-next {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--accent);
+  border: none;
+  padding: 16px 36px;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-next:hover {
+  background: var(--accent-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201,162,39,0.3);
+}
+
+.btn-next:active { transform: translateY(1px); box-shadow: none; }
+
+.btn-back {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.btn-back:hover { color: var(--white); }
+
+/* Progress dots */
+.progress-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 40px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.dot.active {
+  background: var(--accent);
+  transform: scale(1.3);
+}
+
+.dot.done {
+  background: rgba(201,162,39,0.4);
+}
+
+/* Success */
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 24px 0;
+}
+
+.form-success.active { display: block; }
+
+.success-icon {
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  font-size: 20px;
+  color: var(--accent);
+}
+
+.success-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 32px;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+.success-text {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+/* ─── FOOTER ─────────────────────────────────────────────────── */
+footer {
+  background: var(--bg);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 64px 80px 40px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 64px;
+  margin-bottom: 48px;
+}
+
+.footer-brand-name {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+.footer-brand-desc {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 280px;
+}
+
+.footer-col-heading {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+
+.footer-address {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--muted);
+  font-style: normal;
+}
+
+.footer-email {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  color: var(--accent);
+  text-decoration: none;
+  display: block;
+  margin-top: 12px;
+  transition: color 0.2s ease;
+}
+
+.footer-email:hover { color: var(--accent-light); }
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-copy {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.footer-by {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  color: rgba(106,117,133,0.5);
+  letter-spacing: 0.04em;
+}
+
+/* ─── ENTRANCE ANIMATIONS ────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .about-section { grid-template-columns: 1fr; padding: 80px 48px; }
+  .about-right { height: 400px; }
+  .services-grid { grid-template-columns: 1fr; }
+  .service-item:nth-child(odd) { padding-right: 0; border-right: none; }
+  .service-item:nth-child(even) { padding-left: 0; }
+  .service-item:nth-last-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .service-item:last-child { border-bottom: none; }
+}
+
+@media (max-width: 768px) {
+  nav { padding: 20px 24px; }
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+
+  .hero-content { padding: 0 24px 120px; max-width: 100%; }
+  .hero-spacer { height: 120px; }
+
+  .stats-strip {
+    padding: 20px 24px;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .stats-divider { display: none; }
+
+  .services-section, .contact-section { padding: 80px 24px; }
+  .section-heading { font-size: 40px; }
+
+  .about-section { padding: 80px 24px; gap: 48px; }
+  .about-headline { font-size: 38px; }
+
+  .contact-card { padding: 40px 28px; }
+  .contact-heading { font-size: 32px; }
+
+  footer { padding: 48px 24px 32px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+
+  .scroll-indicator { display: none; }
+}
+
+@media (max-width: 480px) {
+  .hero-ctas { flex-direction: column; align-items: flex-start; }
+  .stats-strip { position: relative; border-top: 1px solid rgba(255,255,255,0.1); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ─── GRAIN SVG filter (hidden) ─────────────────────────────── -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <filter id="grain">
+    <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+  </filter>
+</svg>
+
+<!-- ─── NAV ───────────────────────────────────────────────────── -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">Regan &amp; Company</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Book Consultation</a>
+  <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ─── MOBILE MENU ────────────────────────────────────────────── -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#services" class="mobile-link">Services</a>
+  <a href="#about" class="mobile-link">About</a>
+  <a href="#contact" class="mobile-link">Contact</a>
+</div>
+
+<!-- ─── HERO ───────────────────────────────────────────────────── -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="hero-spacer"></div>
+
+    <div class="hero-badge">
+      <div class="hero-badge-rule"></div>
+      <span class="hero-badge-text">Chartered Accountants &middot; Dublin &amp; Monaghan</span>
+    </div>
+
+    <h1 class="hero-headline">
+      <span class="hero-headline-plain">Accounting That</span>
+      <span class="hero-headline-accent">Works for You.</span>
+    </h1>
+
+    <p class="hero-sub">Tailored financial and tax services for businesses and individuals. Two offices, one commitment — making complex advice clear.</p>
+
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-primary">Book a Consultation</a>
+      <a href="#services" class="btn-ghost">Learn More &nbsp;&rarr;</a>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <a href="#services" class="scroll-indicator" aria-label="Scroll down">
+    <span class="scroll-indicator-text">Scroll</span>
+    <div class="scroll-line"></div>
+  </a>
+
+  <!-- Stats strip -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <span class="stat-number">25+</span>
+      <span class="stat-label">Years</span>
+    </div>
+    <div class="stats-divider"></div>
+    <div class="stat-item">
+      <span class="stat-number">2</span>
+      <span class="stat-label">Offices</span>
+    </div>
+    <div class="stats-divider"></div>
+    <div class="stat-item">
+      <span class="stat-number">500+</span>
+      <span class="stat-label">Clients</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SERVICES ──────────────────────────────────────────────── -->
+<section class="services-section" id="services">
+  <div class="section-eyebrow reveal">What We Do</div>
+  <h2 class="section-heading reveal reveal-delay-1">Our Services</h2>
+
+  <div class="services-grid">
+    <div class="service-item reveal reveal-delay-1">
+      <span class="service-number">01</span>
+      <div class="service-body">
+        <h3 class="service-name">Accountancy</h3>
+        <p class="service-desc">Annual accounts preparation, management accounts and financial reporting for businesses of all sizes.</p>
+      </div>
+    </div>
+
+    <div class="service-item reveal reveal-delay-2">
+      <span class="service-number">02</span>
+      <div class="service-body">
+        <h3 class="service-name">Tax Services</h3>
+        <p class="service-desc">Corporation tax, income tax, VAT and capital gains — compliant returns with proactive planning.</p>
+      </div>
+    </div>
+
+    <div class="service-item reveal reveal-delay-1">
+      <span class="service-number">03</span>
+      <div class="service-body">
+        <h3 class="service-name">Payroll &amp; Bookkeeping</h3>
+        <p class="service-desc">Accurate, on-time payroll processing and day-to-day bookkeeping so your numbers are always current.</p>
+      </div>
+    </div>
+
+    <div class="service-item reveal reveal-delay-2">
+      <span class="service-number">04</span>
+      <div class="service-body">
+        <h3 class="service-name">Company Secretarial</h3>
+        <p class="service-desc">CRO filings, statutory registers, director changes and all annual compliance obligations handled for you.</p>
+      </div>
+    </div>
+
+    <div class="service-item reveal reveal-delay-1">
+      <span class="service-number">05</span>
+      <div class="service-body">
+        <h3 class="service-name">Company Set Up</h3>
+        <p class="service-desc">From incorporation to opening accounts — a smooth start for new Irish companies and sole traders.</p>
+      </div>
+    </div>
+
+    <div class="service-item reveal reveal-delay-2">
+      <span class="service-number">06</span>
+      <div class="service-body">
+        <h3 class="service-name">Retirement Planning</h3>
+        <p class="service-desc">Pension structuring, executive pensions and exit-planning strategies tailored to your circumstances.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─────────────────────────────────────────────────── -->
+<section class="about-section" id="about">
+  <div class="about-left">
+    <div class="section-eyebrow reveal">About Us</div>
+    <h2 class="about-headline reveal reveal-delay-1">Trusted advisors.<br>Clear answers.</h2>
+    <p class="about-body reveal reveal-delay-2">
+      Regan &amp; Company has been helping Irish businesses and individuals navigate their financial lives for over 25 years. With offices in Dublin and Carrickmacross, Co. Monaghan, we combine the reach of a city practice with the personal service of a local firm.
+    </p>
+    <p class="about-body reveal reveal-delay-3">
+      Our team of qualified Chartered Accountants takes time to understand your situation before making recommendations — because good advice starts with listening. Whether you're a sole trader just starting out or an established SME, you'll always deal directly with a senior accountant.
+    </p>
+    <div class="about-quote reveal reveal-delay-4">
+      <p class="about-quote-text">"We believe every client deserves straightforward advice, delivered with care — not jargon, not delay."</p>
+    </div>
+  </div>
+
+  <div class="about-right reveal reveal-delay-2">
+    <img
+      src="https://picsum.photos/seed/businessteam/700/800"
+      alt="Regan and Company team"
+      class="about-img"
+      loading="lazy"
+    >
+    <div class="about-img-overlay"></div>
+    <div class="about-img-color"></div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ───────────────────────────────────────────────── -->
+<section class="contact-section" id="contact">
+  <div class="section-eyebrow reveal" style="margin-bottom: 16px;">Get In Touch</div>
+  <div class="contact-card reveal reveal-delay-1">
+    <h2 class="contact-heading">Book a Consultation</h2>
+    <p class="contact-sub">We'll match you with the right advice in a few quick steps.</p>
+
+    <!-- Step 1 -->
+    <div class="form-step active" id="step1">
+      <p class="form-question">What type of client are you?</p>
+      <div class="form-options">
+        <div class="form-option" data-value="business">
+          <div class="form-option-radio"></div>
+          <span class="form-option-label">Business owner</span>
+        </div>
+        <div class="form-option" data-value="selfemployed">
+          <div class="form-option-radio"></div>
+          <span class="form-option-label">Self-employed</span>
+        </div>
+        <div class="form-option" data-value="personal">
+          <div class="form-option-radio"></div>
+          <span class="form-option-label">Personal tax</span>
+        </div>
+      </div>
+      <div class="form-nav">
+        <span></span>
+        <button class="btn-next" id="next1" disabled>Next &rarr;</button>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="form-step" id="step2">
+      <p class="form-question">What service are you looking for?</p>
+      <div class="form-options">
+        <div class="form-option" data-value="tax">
+          <div class="form-option-radio"></div>
+          <span class="form-option-label">Tax advice</span>
+        </div>
+        <div class="form-option" data-value="payroll">
+          <div class="form-option-radio"></div>
+          <span class="form-option-label">Payroll / bookkeeping</span>
+        </div>
+        <div class="form-option" data-value="setup">
+          <div class="form-option-radio"></div>
+          <span class="form-option-label">Company set up</span>
+        </div>
+      </div>
+      <div class="form-nav">
+        <button class="btn-back" id="back2">&larr; Back</button>
+        <button class="btn-next" id="next2" disabled>Next &rarr;</button>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="form-step" id="step3">
+      <p class="form-question">Almost there — how do we reach you?</p>
+      <div class="form-fields">
+        <div class="form-field">
+          <label for="inputName">Full name</label>
+          <input type="text" id="inputName" placeholder="Your name" autocomplete="name">
+        </div>
+        <div class="form-field">
+          <label for="inputEmail">Email address</label>
+          <input type="email" id="inputEmail" placeholder="you@example.com" autocomplete="email">
+        </div>
+      </div>
+      <div class="form-nav">
+        <button class="btn-back" id="back3">&larr; Back</button>
+        <button class="btn-next" id="submitBtn">Send &rarr;</button>
+      </div>
+    </div>
+
+    <!-- Success -->
+    <div class="form-success" id="formSuccess">
+      <div class="success-icon">&#10003;</div>
+      <h3 class="success-heading">We'll be in touch.</h3>
+      <p class="success-text">Thanks for getting in touch. A member of our team will reply within one business day.</p>
+    </div>
+
+    <!-- Progress dots -->
+    <div class="progress-dots" id="progressDots">
+      <div class="dot active" data-step="1"></div>
+      <div class="dot" data-step="2"></div>
+      <div class="dot" data-step="3"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <p class="footer-brand-name">Regan &amp; Company</p>
+      <p class="footer-brand-desc">Chartered Accountants serving businesses and individuals across Dublin and Monaghan since 1999.</p>
+    </div>
+
+    <div>
+      <p class="footer-col-heading">Dublin Office</p>
+      <address class="footer-address">
+        Regan &amp; Company<br>
+        Suite 14, Fitzwilliam Square<br>
+        Dublin 2, D02 KV97
+      </address>
+      <a href="mailto:ken@reganandcompany.ie" class="footer-email">ken@reganandcompany.ie</a>
+    </div>
+
+    <div>
+      <p class="footer-col-heading">Monaghan Office</p>
+      <address class="footer-address">
+        Regan &amp; Company<br>
+        Market Square<br>
+        Carrickmacross, Co. Monaghan
+      </address>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span class="footer-copy">&copy; 2026 Regan &amp; Company Chartered Accountants. All rights reserved.</span>
+    <span class="footer-by">Website by FlowBuild AI</span>
+  </div>
+</footer>
+
+<!-- ─── JAVASCRIPT ─────────────────────────────────────────────── -->
+<script>
+// ── Nav scroll behaviour
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+// ── Hamburger
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+
+hamburgerBtn.addEventListener('click', () => {
+  const open = hamburgerBtn.classList.toggle('open');
+  if (open) {
+    mobileMenu.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  } else {
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+
+document.querySelectorAll('.mobile-link').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburgerBtn.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+// ── IntersectionObserver for reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── Multi-step form
+let currentStep = 1;
+const totalSteps = 3;
+
+function showStep(n) {
+  document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+  const stepEl = document.getElementById('step' + n);
+  if (stepEl) {
+    stepEl.classList.add('active');
+    // Trigger fade
+    stepEl.style.opacity = '0';
+    requestAnimationFrame(() => {
+      stepEl.style.opacity = '1';
+    });
+  }
+  // Update dots
+  document.querySelectorAll('.dot').forEach((dot, i) => {
+    dot.classList.remove('active', 'done');
+    if (i + 1 < n) dot.classList.add('done');
+    if (i + 1 === n) dot.classList.add('active');
+  });
+  currentStep = n;
+}
+
+// Option selection
+document.querySelectorAll('#step1 .form-option').forEach(opt => {
+  opt.addEventListener('click', () => {
+    document.querySelectorAll('#step1 .form-option').forEach(o => o.classList.remove('selected'));
+    opt.classList.add('selected');
+    document.getElementById('next1').disabled = false;
+  });
+});
+
+document.querySelectorAll('#step2 .form-option').forEach(opt => {
+  opt.addEventListener('click', () => {
+    document.querySelectorAll('#step2 .form-option').forEach(o => o.classList.remove('selected'));
+    opt.classList.add('selected');
+    document.getElementById('next2').disabled = false;
+  });
+});
+
+document.getElementById('next1').addEventListener('click', () => showStep(2));
+document.getElementById('next2').addEventListener('click', () => showStep(3));
+document.getElementById('back2').addEventListener('click', () => showStep(1));
+document.getElementById('back3').addEventListener('click', () => showStep(2));
+
+document.getElementById('submitBtn').addEventListener('click', () => {
+  const name = document.getElementById('inputName').value.trim();
+  const email = document.getElementById('inputEmail').value.trim();
+  if (!name || !email) {
+    document.getElementById('inputName').style.borderBottomColor = name ? '' : 'rgba(201,162,39,0.8)';
+    document.getElementById('inputEmail').style.borderBottomColor = email ? '' : 'rgba(201,162,39,0.8)';
+    return;
+  }
+  // Show success
+  document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('formSuccess').classList.add('active');
+  document.getElementById('progressDots').style.opacity = '0';
+});
+
+// Reset field error style on focus
+['inputName', 'inputEmail'].forEach(id => {
+  document.getElementById(id).addEventListener('focus', function() {
+    this.style.borderBottomColor = '';
+  });
+});
+</script>
+</body>
+</html>
